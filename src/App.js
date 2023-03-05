@@ -5,11 +5,23 @@ import TextField from "@mui/material/TextField";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 const App = () => {
 const [note, setNote] = useState("");
 const [data, setData] = useState([]);
-const toSetNote =()=>{
+const [date, setDate] = useState("")
+useEffect(()=>{
+  setTimeout(() => {
+    const d = new Date();
+    let hrs = d.getHours();
+  let min = d.getMinutes();
+  let sec = d.getSeconds()
+  setDate([hrs,":",min,":",sec])
+  }, 1000);
+},[date])
+
+  const toSetNote =()=>{
   setData(
     [
       ...data,
@@ -25,12 +37,14 @@ const toReamove=(index)=>{
   arr.splice(index,1)
   setData([...arr])
 }
+
   return (
     <>
       <div className="main">
         <div className="notes">
           <div className="header">
             <Header />
+            <p>{date}</p>
           </div>
           <div className="add-area">
             <Box
